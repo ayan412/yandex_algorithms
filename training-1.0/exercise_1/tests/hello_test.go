@@ -1,7 +1,8 @@
-package main
+package hello
 
 import (
 	"testing"
+
 	"github.com/stretchr/testify/assert"
 )
 
@@ -14,8 +15,6 @@ func TestEnglish(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, expected, actual)
 }
-
-
 
 // package main
 
