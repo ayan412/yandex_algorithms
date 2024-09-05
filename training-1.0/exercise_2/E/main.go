@@ -1,100 +1,80 @@
-package main
+	package main
 
-import (
-	"bufio"
-	"fmt"
-	"os"
-	"strconv"
-	"strings"
-)
+	import (
+		"bufio"
+		"fmt"
+		"os"
+		"strconv"
+		"strings"
+	)
 
-// 1000 995 990 985 980 975 970 965 960 955 950 945 940 935 930 925 920 915 910 905 - c этими данными код дает 0, но код прошедший все тесты выдает 2.
-// код не проходит 9-й тест, видимо где-то ошибка
-/*
-gradus@AserSwift3:~/go/src/ayan412/yandex_algorithms/training-1.0/exercise_2/E$ go run main.go 
-6
-10 5 1 5 1 5
-3
-gradus@AserSwift3:~/go/src/ayan412/yandex_algorithms/training-1.0/exercise_2/E$ go run main_claude.go
-6
-10 5 1 5 1 5
-2
-*/
-func main() {
-	scanner := bufio.NewScanner(os.Stdin)
+	func main() {
+		scanner := bufio.NewScanner(os.Stdin)
 
-	scanner.Scan()
-	scanner.Scan()
+		scanner.Scan()
+		scanner.Scan()
 
-	input := scanner.Text()
+		input := scanner.Text()
+		strNumbers := strings.Fields(input)
 
-	//strNumbers := strings.Split(line, " ")
+		fiveMap := make(map[int]int)
+		indexMap := make(map[int]int)
 
-	strNumbers := strings.Fields(input)
+		numbers := make([]int, 0)
+		max, min := -1, 10001
 
-	fiveMap := make(map[int]int)
-	indexMap := make(map[int]int)
-
-	numbers := make([]int, 0)
-	max, min := -1, 10001
-
-	for k, v := range strNumbers {
-		num, _ := strconv.Atoi(v)
-		if num > max {
-			max = num
+		for k, v := range strNumbers {
+			num, _ := strconv.Atoi(v)
+			if num > max {
+				max = num
+			}
+			if num < min {
+				min = num
+			}
+			if num%5 == 0 && num%10 != 0 {
+				fiveMap[k] = num
+			}
+			indexMap[k] = num
+			numbers = append(numbers, num)
 		}
-		if num < min {
-			min = num
+
+		foundPlace := false
+		place := 1
+
+		if len(numbers) < 3 {
+			fmt.Println("0")
+			return
 		}
-		if num%10 == 5 && num%10 != 0 {
-			fiveMap[k] = num
-		}
-		indexMap[k] = num
-		numbers = append(numbers, num)
-	}
 
-	// fmt.Println(strNumbers, indexMap, fiveMap, max, min, numbers)
-
-	//var noplace int = -1
-
-	// var bestPlace = len(numbers) + 1
-	foundPlace := false
-	place := 0
-
-	//uniqueNumbers := removeDuplicates(numbers)
-
-	if len(numbers) < 3 {
-		fmt.Println("0")
-		return
-	}
-
-	for i, num := range fiveMap {
-		for k, v := range indexMap {
-			if v == max && i > k && indexMap[i+1] == min && num>indexMap[i+1]{
-				if num == min {
-					foundPlace = false
-					break
-				}
-				if num == max {
-					foundPlace = true
-					break
-				} else {
-					for _, value := range indexMap {
-						if value > num {
-							place++
+		for i, num := range fiveMap {
+			if foundPlace {
+				break // Exit the outer loop if we've found a place
+			}
+			for k, v := range indexMap {
+				if v == max && i > k && i+1 < len(indexMap) && indexMap[i+1] < num {
+					if num == min {
+						break
+					}
+					if num == max {
+						foundPlace = true
+						break
+					} else {
+						place = 1 // Reset place to 1
+						for _, value := range indexMap {
+							if value > num {
+								place++
+							}
 						}
 						foundPlace = true
+						break
 					}
 				}
-				break
 			}
 		}
-	}
 
-	if foundPlace == false {
-		fmt.Println(0)
-	} else {
-		fmt.Println(place+1)
+		if foundPlace {
+			fmt.Println(place)
+		} else {
+			fmt.Println(0)
+		}
 	}
-}
-
