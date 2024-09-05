@@ -10,6 +10,16 @@ import (
 
 // 1000 995 990 985 980 975 970 965 960 955 950 945 940 935 930 925 920 915 910 905 - c этими данными код дает 0, но код прошедший все тесты выдает 2.
 // код не проходит 9-й тест, видимо где-то ошибка
+/*
+gradus@AserSwift3:~/go/src/ayan412/yandex_algorithms/training-1.0/exercise_2/E$ go run main.go 
+6
+10 5 1 5 1 5
+3
+gradus@AserSwift3:~/go/src/ayan412/yandex_algorithms/training-1.0/exercise_2/E$ go run main_claude.go
+6
+10 5 1 5 1 5
+2
+*/
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
