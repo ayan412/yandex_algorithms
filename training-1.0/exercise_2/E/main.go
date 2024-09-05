@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+// 1000 995 990 985 980 975 970 965 960 955 950 945 940 935 930 925 920 915 910 905 - c этими данными код дает 0, но код прошедший все тесты выдает 2.
+// код не проходит 9-й тест, видимо где-то ошибка
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 
@@ -15,14 +17,6 @@ func main() {
 	scanner.Scan()
 
 	input := scanner.Text()
-
-	//line := "10 20 15 10 30 5 1"
-	//line := "15 15 10"
-	//line := "10 15 20"
-	//line := "20 15 15 15 15 1"
-	//line := "30 15 30 5 1"
-	//line := "30 35 25 1"
-	//line := "10 20 15 10 30 5 1"
 
 	//strNumbers := strings.Split(line, " ")
 
@@ -32,7 +26,7 @@ func main() {
 	indexMap := make(map[int]int)
 
 	numbers := make([]int, 0)
-	max, min := -1, 100001
+	max, min := -1, 10001
 
 	for k, v := range strNumbers {
 		num, _ := strconv.Atoi(v)
@@ -42,7 +36,7 @@ func main() {
 		if num < min {
 			min = num
 		}
-		if num%10 == 5 {
+		if num%10 == 5 && num%10 != 0 {
 			fiveMap[k] = num
 		}
 		indexMap[k] = num
@@ -55,13 +49,18 @@ func main() {
 
 	// var bestPlace = len(numbers) + 1
 	foundPlace := false
-	place := 1
+	place := 0
 
 	//uniqueNumbers := removeDuplicates(numbers)
 
+	if len(numbers) < 3 {
+		fmt.Println("0")
+		return
+	}
+
 	for i, num := range fiveMap {
 		for k, v := range indexMap {
-			if v == max && i > k && indexMap[i+1] == min {
+			if v == max && i > k && indexMap[i+1] == min && num>indexMap[i+1]{
 				if num == min {
 					foundPlace = false
 					break
@@ -72,11 +71,10 @@ func main() {
 				} else {
 					for _, value := range indexMap {
 						if value > num {
-							foundPlace = true
 							place++
 						}
+						foundPlace = true
 					}
-
 				}
 				break
 			}
@@ -86,19 +84,7 @@ func main() {
 	if foundPlace == false {
 		fmt.Println(0)
 	} else {
-		fmt.Println(place)
+		fmt.Println(place+1)
 	}
 }
 
-// func removeDuplicates(slice []int) []int {
-//     keys := make(map[int]struct{})
-//     i := 0
-//     for _, entry := range slice {
-//         if _, exists := keys[entry]; !exists {
-//             keys[entry] = struct{}{}
-//             slice[i] = entry
-//             i++
-//         }
-//     }
-//     return slice[:i]
-// }
