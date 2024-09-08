@@ -51,7 +51,7 @@ func DefineResultVasily(nums []int) int {
 	return nums[indNeedEl]
 }
 
-func mainn() {
+func main() {
 	var size int
 	fmt.Scan(&size)
 	numbers := make([]int, size)
@@ -60,4 +60,3 @@ func mainn() {
 	}
 	fmt.Println(GetPrizePlace(DefineResultVasily(numbers), numbers))
 }
-// 1000 995 990 985 980 975 970 965 960 955 950 945 940 935 930 925 920 915 910 905 - c этими данными неверный ответ 2.
