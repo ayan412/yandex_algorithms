@@ -51,7 +51,7 @@ func DefineResultVasily(nums []int) int {
 	return nums[indNeedEl]
 }
 
-func main() {
+func mainn() {
 	var size int
 	fmt.Scan(&size)
 	numbers := make([]int, size)

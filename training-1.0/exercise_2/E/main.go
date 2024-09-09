@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func main() {
+func mainf() {
 	scanner := bufio.NewScanner(os.Stdin)
 
 	scanner.Scan()
