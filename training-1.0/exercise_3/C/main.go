@@ -4,8 +4,8 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strconv"
 	"sort"
+	"strconv"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 
 	//slcn, slcm := []int{}, []int{}
 
-	for i:=0;i<n;i++{
+	for i := 0; i < n; i++ {
 		if scanner.Scan() {
 			nn, err := strconv.Atoi(scanner.Text())
 			if err != nil {
@@ -29,7 +29,7 @@ func main() {
 		}
 	}
 
-	for i:=0;i<m;i++{
+	for i := 0; i < m; i++ {
 		if scanner.Scan() {
 			mm, err := strconv.Atoi(scanner.Text())
 			if err != nil {
@@ -40,31 +40,43 @@ func main() {
 	}
 
 	intersection := []int{}
+	nointersectionA := []int{}
+	nointersectionB := []int{}
 	for n := range na {
 		if nb[n] {
 			intersection = append(intersection, n)
+		} else {
+			nointersectionA = append(nointersectionA, n)
 		}
 	}
-	sort.Ints(intersection)
 
-	for _, num := range intersection {
-        fmt.Printf("%d ", num)
-    }
-
-	nointersectionA := []int{}
-	//nointersectionB := []int{}
-
-
-	// for _, val := range intersection {
-	// 	if na[val]
-	// }
-	
-	for n := range na {
-		if intersection
+	for n := range nb {
+		if na[n] == false {
+			nointersectionB = append(nointersectionB, n)
+		}
 	}
 
+	sort.Ints(intersection)
+	sort.Ints(nointersectionA)
+	sort.Ints(nointersectionB)
 
-	// na[n] = true
-	// nb[m] = true
-	fmt.Println(na,nb, nointersectionA)
+	//fmt.Println("-------")
+
+	fmt.Println(len(intersection))
+	for _, num := range intersection {
+		fmt.Printf("%d ", num)
+	}
+	fmt.Println()
+
+	fmt.Println(len(nointersectionA))
+	for _, num := range nointersectionA {
+		fmt.Printf("%d ", num)
+	}
+	fmt.Println()
+
+	fmt.Println(len(nointersectionB))
+	for _, num := range nointersectionB {
+		fmt.Printf("%d ", num)
+	}
+	fmt.Println()
 }
