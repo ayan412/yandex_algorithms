@@ -1,34 +1,55 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
-	"os"
+    "bufio"
+    "fmt"
+    "os"
+    "strconv"
+
+    "strings"
 )
 
 func main() {
-	scanner := bufio.NewScanner(os.Stdin)
-	scanner.Scan()
-	m := make(map[rune]bool)
-	for _, ch := range scanner.Text() {
-		if ch != ' ' {
-			m[ch] = true
-		}
-	}
+
+    m := make(map[string]bool)
+    k := make(map[string]bool)
+
+    scanner := bufio.NewScanner(os.Stdin)
+
+    scanner.Scan() 
+
+        line := strings.Fields(scanner.Text())
+
+        for _, str := range line {
+            m[str] = true
+        }
+    
+
+    
 
 	scanner.Scan()
 	d := scanner.Text()
+    
 
-	count := 0
-	for _, ch := range d {
-		if !m[ch] {
-			m[ch] = true
-			count++
-		}
-	}
+    for _,v := range d {
+        k[string(v)]=true
+    }
 
-	fmt.Println(count)
+    slc := []int{}
+
+    // проход по d
+    for v := range k {
+        // если цифры из d нет в m, добавить её в слайc
+        if m[v] != true {
+            c,_ := strconv.Atoi(v)
+            slc = append(slc, int(c))
+        }
+    }
+    // длина слайса 
+    //fmt.Println(m,k,slc)
+    fmt.Printf("%d\n", len(slc))
 }
+
 
 /*
 package main
